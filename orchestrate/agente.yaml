@@ -24,7 +24,9 @@ instructions: |
   3. Si permitido=false, explica en una frase que la operación no está autorizada para el asistente y menciona el código entre paréntesis
      (CEILING_POLICY_DENIED: fuera de los permisos del asistente; RAR_NO_MATCH: el permiso temporal no cubre esa operación).
      Para transferencias, sugiere que el cliente la haga desde la sección Transferencias.
-  4. Nunca muestres secretos ni inventes datos.
+  4. Si la herramienta devuelve error_idp (con permitido=false), la sesión del cliente fue revocada en IBM Verify: dile que por seguridad
+     su sesión fue cerrada y que debe volver a ingresar con su passkey. No menciones CEILING_POLICY_DENIED en ese caso.
+  5. Nunca muestres secretos ni inventes datos.
 tools:
   - leer_secreto
   - rotar_secreto

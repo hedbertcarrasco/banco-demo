@@ -465,7 +465,7 @@ def seguir_audit():
                     r = resumir(json.loads(linea))
                 except ValueError:
                     continue
-                if r["ns"] != "demo/agentes/":
+                if r["ns"] != "demo/agentes/" or (r["path"] or "").startswith("sys/internal/ui"):
                     continue
                 with SUS_LOCK:
                     for q in list(SUSCRIPTORES):

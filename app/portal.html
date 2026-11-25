@@ -133,7 +133,7 @@ const SUG = ["¿Cuánto saldo tengo?", "¿Cuál es mi límite diario de transfer
 let hist = [], ocupado = false;
 $("#hoy").textContent = new Date().toLocaleDateString("es-CL", {day: "numeric", month: "long", year: "numeric"});
 fetch("/api/yo").then(r => r.json()).then(j => {
-  if (!j.sesion) { $("#vlogin").style.display = "grid"; return; }
+  if (!j.sesion || location.search.includes("vista=login")) { $("#vlogin").style.display = "grid"; return; }
   const n = (j.nombre || "Ana");
   $("#nom").textContent = n; $("#ini").textContent = n[0].toUpperCase();
   $("#hola").textContent = "Hola, " + (j.saludo || "Ana");

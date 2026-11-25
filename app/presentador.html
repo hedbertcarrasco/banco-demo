@@ -228,13 +228,14 @@ async function deOrchestrate(r) {
     while (ocupado) await sleep(200);
     ocupado = true;
     $("#orq").classList.add("on");
-    burbuja("yo", "Ana · en watsonx Orchestrate", esc(x.pedido || "(sin texto)"));
+    burbuja("yo", "Cliente · en el portal Banco Demo", esc(x.pedido || "(sin texto)"));
     const t = burbuja("ag", "watsonx Orchestrate → tool", `<span class="typing"><span></span><span></span><span></span></span>`);
     ["#p1","#p2","#p3"].forEach(p => $(p).classList.remove("on")); $("#p3b").innerHTML = ""; jtiActual = null;
     $("#intent").textContent = x.intencion || "";
     await pintarPasos(x);
     t.classList.add(x.veredicto ? "ok" : "no");
-    t.innerHTML = `<div class="quien">asistente-banca · tool llamado por watsonx Orchestrate</div>${esc(x.respuesta)}`;
+    const cod = (x.pasos.find(p => p.tipo === "vault") || {}).codigo;
+    t.innerHTML = `<div class="quien">asistente-banca · tool llamado por watsonx Orchestrate</div>${x.veredicto ? "Vault lo permitió" : "Vault lo negó" + (cod ? " (" + esc(cod) + ")" : (x.pasos.some(p => p.tipo === "idp_error") ? " (sesión revocada en Verify)" : ""))} · ${esc(x.intencion || "")}`;
     if (x.veredicto === true) $("#nA").textContent = (++nA) + " permitidas";
     if (x.veredicto === false) $("#nD").textContent = (++nD) + " denegadas";
     $("#chat").scrollTop = 1e9; ocupado = false; colaOx.shift();
