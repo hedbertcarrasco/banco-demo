@@ -1,0 +1,6 @@
+*.pem
+*.key
+*.env
+.idp-demo/
+__pycache__/
+verify.json
